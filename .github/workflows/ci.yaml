@@ -1,0 +1,27 @@
+name: Build CMake Project
+
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+        branches:
+            - master
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+
+        - name: Set up Ninja
+          run: sudo apt-get install ninja-build
+
+        - name: Configure and build CMake project
+          run: |
+                mkdir build
+                cd build
+                cmake -GNinja ..
+                ninja -v
